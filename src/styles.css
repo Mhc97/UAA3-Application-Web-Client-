@@ -1,108 +1,172 @@
 /* You can add global styles to this file, and also import other style files */
-/* ===================================
-   RESPONSIVE DESIGN - GLOBAL
-   =================================== */
 
-/* Réinitialisation */
+/* ===================================================================
+   DESIGN SYSTEM — SITE MÉDICAL
+   Approche "mobile first" : on écrit d'abord les styles pour petit
+   écran (sans media query), puis on ajoute des min-width pour
+   enrichir l'affichage sur tablette et desktop.
+   =================================================================== */
+
+/* -------------------------------------------------------------
+   1. VARIABLES DE COULEUR
+   Une palette clinique et rassurante : un fond légèrement chaud
+   (pas blanc pur, moins agressif pour les yeux), un accent teal
+   médical (calme, associé au soin) plutôt qu'un bleu SaaS générique.
+   ------------------------------------------------------------- */
+:root {
+  /* Fond & surfaces */
+  --clr-bg: #f7f6f2;          /* fond de page, blanc cassé chaleureux */
+  --clr-surface: #ffffff;     /* cartes, formulaires */
+  --clr-surface-muted: #f1f0ec; /* zones secondaires (ex: en-tête de tableau) */
+
+  /* Texte */
+  --clr-text: #1e293b;        /* texte principal, presque noir */
+  --clr-text-muted: #64748b;  /* texte secondaire, légendes */
+  --clr-text-on-accent: #ffffff;
+
+  /* Accent principal (teal médical) */
+  --clr-primary: #0f766e;
+  --clr-primary-dark: #115e59;
+  --clr-primary-light: #ccfbf1;
+
+  /* États / actions */
+  --clr-warning: #b45309;     /* modifier */
+  --clr-warning-dark: #92400e;
+  --clr-danger: #b91c1c;      /* supprimer */
+  --clr-danger-dark: #991b1b;
+
+  /* Bordures & ombres */
+  --clr-border: #e2e8f0;
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08);
+
+  /* Rayons & espacements cohérents dans tout le site */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  /* Typographie : une seule famille, système = rapide et lisible.
+     "-apple-system" etc. donne une police native sur chaque OS. */
+  --font-base: -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+}
+
+/* -------------------------------------------------------------
+   2. RESET MINIMAL
+   ------------------------------------------------------------- */
 * {
   box-sizing: border-box;
 }
 
+html {
+  /* Respecte la taille de police choisie par l'utilisateur
+     (accessibilité), on ne fige rien en px sur html/body. */
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f1f5f9;
+  font-family: var(--font-base);
+  background-color: var(--clr-bg);
+  color: var(--clr-text);
+  line-height: 1.6;
+  /* Anti-aliasing plus propre sur Mac/iOS */
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Tablettes et petits écrans */
-@media (max-width: 1024px) {
-  .dashboard-container {
-    padding: 15px;
-  }
-  
-  table {
-    font-size: 14px;
-  }
-  
-  th, td {
-    padding: 10px 8px;
+/* Focus clavier toujours visible : indispensable sur un site médical
+   utilisé par du personnel soignant au clavier / lecteur d'écran. */
+:focus-visible {
+  outline: 2px solid var(--clr-primary);
+  outline-offset: 2px;
+}
+
+/* Respecte les préférences "réduire les animations" du système */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
-/* Mobiles */
-@media (max-width: 768px) {
+/* -------------------------------------------------------------
+   3. TYPOGRAPHIE DE BASE (mobile d'abord, tailles resserrées)
+   ------------------------------------------------------------- */
+h1 {
+  font-size: 1.375rem; /* 22px sur mobile */
+  font-weight: 600;
+  color: var(--clr-text);
+  margin: 0 0 var(--space-4);
+}
+
+h2 {
+  font-size: 1.125rem; /* 18px sur mobile */
+  font-weight: 600;
+  color: var(--clr-text);
+  margin: 0 0 var(--space-3);
+}
+
+p {
+  color: var(--clr-text-muted);
+}
+
+/* Titres plus grands dès la tablette */
+@media (min-width: 640px) {
   h1 {
-    font-size: 22px;
+    font-size: 1.75rem;
   }
-  
   h2 {
-    font-size: 18px;
-  }
-  
-  .card {
-    padding: 15px;
-  }
-  
-  /* Formulaires empilés */
-  .form-group {
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .form-group input,
-  .form-group button {
-    width: 100%;
-  }
-  
-  /* Tableaux scrollables */
-  table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    font-size: 13px;
-  }
-  
-  th, td {
-    padding: 8px 6px;
-  }
-  
-  /* Boutons plus gros pour le tactile */
-  button {
-    padding: 10px 14px;
-    font-size: 14px;
+    font-size: 1.25rem;
   }
 }
 
-/* Très petits mobiles */
-@media (max-width: 480px) {
-  .dashboard-container {
-    padding: 10px;
-  }
-  
+@media (min-width: 1024px) {
   h1 {
-    font-size: 18px;
+    font-size: 2rem;
   }
-  
-  h2 {
-    font-size: 16px;
-  }
-  
+}
+
+/* -------------------------------------------------------------
+   4. COMPOSANT "CARD" GÉNÉRIQUE
+   Réutilisé par le tableau de bord, la liste des patients, etc.
+   ------------------------------------------------------------- */
+.card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-4);
+}
+
+@media (min-width: 640px) {
   .card {
-    padding: 12px;
-    border-radius: 6px;
+    padding: var(--space-5);
   }
-  
-  table {
-    font-size: 12px;
-  }
-  
-  th, td {
-    padding: 6px 4px;
-  }
-  
+}
+
+/* -------------------------------------------------------------
+   5. BOUTONS GÉNÉRIQUES
+   Grande zone tactile par défaut (mobile), on resserre ensuite.
+   ------------------------------------------------------------- */
+button {
+  font-family: inherit;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 600;
+  padding: 12px 16px;
+  font-size: 0.9375rem;
+  transition: background-color 0.15s ease;
+}
+
+@media (min-width: 640px) {
   button {
-    padding: 8px 10px;
-    font-size: 12px;
-    margin: 2px 0;
+    padding: 10px 16px;
+    font-size: 0.875rem;
   }
 }

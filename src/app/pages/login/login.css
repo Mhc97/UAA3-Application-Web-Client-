@@ -1,77 +1,123 @@
+/* ===================================================================
+   PAGE DE CONNEXION
+   Mobile first : les règles de base ci-dessous ciblent un petit
+   écran. Les media queries (min-width) n'ajoutent que ce qui change
+   sur des écrans plus larges — jamais l'inverse.
+   =================================================================== */
+
+/* -------------------------------------------------------------
+   Conteneur plein écran qui centre la carte de connexion.
+   min-height: 100dvh gère mieux la barre d'adresse mobile que
+   100vh (évite le petit "saut" au chargement sur iOS/Android).
+   ------------------------------------------------------------- */
 .login-container {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f1f5f9;
-  padding: 20px;
+  /* Léger dégradé très discret pour donner de la profondeur sans
+     sortir de la palette clinique (juste deux teintes de fond). */
+  background: linear-gradient(
+    180deg,
+    var(--clr-bg) 0%,
+    var(--clr-surface-muted) 100%
+  );
+  padding: var(--space-4);
 }
 
+/* -------------------------------------------------------------
+   Carte de connexion
+   ------------------------------------------------------------- */
 .login-card {
   width: 100%;
   max-width: 400px;
-  padding: 30px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  padding: var(--space-5);
+  background-color: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
 }
 
 .login-card h2 {
   text-align: center;
-  margin-bottom: 25px;
-  color: #2563eb;
+  margin-bottom: var(--space-5);
+  color: var(--clr-primary-dark);
+  font-size: 1.25rem;
 }
 
 .login-card label {
   display: block;
-  margin-top: 15px;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #333;
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-2);
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--clr-text);
 }
 
+/* -------------------------------------------------------------
+   Champs de saisie
+   Hauteur généreuse (48px+) dès le départ : sur mobile c'est la
+   cible tactile minimale recommandée pour ne pas rater le champ.
+   ------------------------------------------------------------- */
 .login-card input {
   display: block;
   width: 100%;
   box-sizing: border-box;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
+  padding: 13px 14px;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  font-size: 16px; /* >=16px empêche Safari iOS de zoomer au focus */
+  color: var(--clr-text);
+  background-color: var(--clr-surface);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
+.login-card input::placeholder {
+  color: var(--clr-text-muted);
+}
+
+.login-card input:focus {
+  outline: none;
+  border-color: var(--clr-primary);
+  box-shadow: 0 0 0 3px var(--clr-primary-light);
+}
+
+/* -------------------------------------------------------------
+   Bouton de connexion
+   ------------------------------------------------------------- */
 .login-card button {
   display: block;
   width: 100%;
-  margin-top: 25px;
-  padding: 12px;
+  margin-top: var(--space-5);
+  padding: 14px;
   border: none;
-  border-radius: 6px;
-  background-color: #2563eb;
-  color: white;
+  border-radius: var(--radius-sm);
+  background-color: var(--clr-primary);
+  color: var(--clr-text-on-accent);
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s ease;
 }
 
 .login-card button:hover {
-  background-color: #1d4ed8;
+  background-color: var(--clr-primary-dark);
 }
 
-/* Mobile */
-@media (max-width: 480px) {
+.login-card button:active {
+  transform: translateY(1px);
+}
+
+/* -------------------------------------------------------------
+   Tablette et plus : la carte peut respirer davantage,
+   les champs redeviennent légèrement plus compacts.
+   ------------------------------------------------------------- */
+@media (min-width: 640px) {
   .login-card {
-    padding: 20px;
+    padding: var(--space-6);
   }
-  
+
   .login-card h2 {
-    font-size: 20px;
-  }
-  
-  .login-card input,
-  .login-card button {
-    padding: 10px;
-    font-size: 14px;
+    font-size: 1.375rem;
   }
 }

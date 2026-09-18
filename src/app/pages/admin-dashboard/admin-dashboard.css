@@ -1,171 +1,215 @@
+/* ===================================================================
+   TABLEAU DE BORD (formulaire + tableau avec actions)
+   Mobile first : sur petit écran le tableau devient une liste de
+   cartes empilées, plus lisible qu'un tableau compressé illisible.
+   =================================================================== */
+
 .dashboard-container {
-  padding: 20px;
+  padding: var(--space-4);
   max-width: 1200px;
   margin: 0 auto;
 }
 
-h1 {
-  color: #2563eb;
-  margin-bottom: 20px;
+.dashboard-container h1 {
+  color: var(--clr-primary-dark);
 }
 
-.card {
-  background: white;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
+/* -------------------------------------------------------------
+   Formulaire (recherche / ajout d'un patient, etc.)
+   Empilé par défaut sur mobile : chaque champ prend toute la
+   largeur pour rester facile à toucher.
+   ------------------------------------------------------------- */
 .form-group {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
 }
 
 .form-group input {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  font-size: 16px; /* évite le zoom automatique de Safari iOS */
+  color: var(--clr-text);
+  background-color: var(--clr-surface);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--clr-primary);
+  box-shadow: 0 0 0 3px var(--clr-primary-light);
 }
 
 .form-group button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: #2563eb;
-  color: white;
-  font-weight: bold;
+  width: 100%;
+  background-color: var(--clr-primary);
+  color: var(--clr-text-on-accent);
 }
 
 .form-group button:hover {
-  background-color: #1d4ed8;
+  background-color: var(--clr-primary-dark);
 }
 
+/* -------------------------------------------------------------
+   Tableau : sur mobile, on masque l'aspect "grille" et on affiche
+   chaque ligne comme une petite carte, avec l'intitulé de colonne
+   généré via data-label (voir commentaire plus bas).
+   ------------------------------------------------------------- */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 15px;
+  margin-top: var(--space-4);
 }
 
-th, td {
+caption {
   text-align: left;
-  padding: 12px;
-  border-bottom: 1px solid #eee;
+  color: var(--clr-text-muted);
+  font-size: 0.875rem;
+  margin-bottom: var(--space-2);
 }
 
-th {
-  background-color: #f8f9fa;
-  font-weight: bold;
-  color: #333;
+@media (max-width: 639px) {
+  /* En dessous de 640px, on transforme le tableau en liste de
+     cartes empilées : c'est bien plus lisible qu'un scroll
+     horizontal sur un tableau dense de données patients. */
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+    width: 100%;
+  }
+
+  thead {
+    display: none; /* les intitulés sont répétés via data-label */
+  }
+
+  tr {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--clr-border);
+    text-align: right;
+  }
+
+  td:last-child {
+    border-bottom: none;
+    justify-content: flex-end;
+  }
+
+  /* Le libellé de colonne vient du HTML : ajoutez sur chaque <td>
+     un attribut data-label="Nom" (ou équivalent) pour l'afficher
+     ici en mobile. Exemple :
+     <td data-label="Patient">Jean Dupont</td>                    */
+  td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: var(--clr-text-muted);
+    text-align: left;
+  }
 }
 
-tr:hover {
-  background-color: #f8f9fa;
+/* À partir de 640px : tableau classique en grille */
+@media (min-width: 640px) {
+  th,
+  td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid var(--clr-border);
+  }
+
+  th {
+    background-color: var(--clr-surface-muted);
+    font-weight: 600;
+    color: var(--clr-text);
+    font-size: 0.8125rem;
+  }
+
+  tr:hover {
+    background-color: var(--clr-surface-muted);
+  }
 }
 
+/* -------------------------------------------------------------
+   Boutons d'action dans le tableau (modifier / supprimer)
+   Empilés et pleine largeur sur mobile pour une cible tactile
+   confortable, côte à côte à partir de la tablette.
+   ------------------------------------------------------------- */
 td button {
-  padding: 6px 12px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
-  margin-right: 5px;
-  font-size: 13px;
 }
 
 td button:first-child {
-  background-color: #f59e0b;
-  color: white;
+  background-color: #fef3e2;
+  color: var(--clr-warning-dark);
 }
 
 td button:first-child:hover {
-  background-color: #d97706;
+  background-color: #fde5c2;
 }
 
 td button:last-child {
-  background-color: #dc2626;
-  color: white;
+  background-color: #fdecec;
+  color: var(--clr-danger-dark);
 }
 
 td button:last-child:hover {
-  background-color: #b91c1c;
+  background-color: #fbd9d9;
 }
 
-/* ========== RESPONSIVE ========== */
+@media (min-width: 640px) {
+  td button {
+    margin-right: var(--space-2);
+  }
+}
 
-@media (max-width: 1024px) {
+/* -------------------------------------------------------------
+   Ajustements progressifs du conteneur / formulaire
+   ------------------------------------------------------------- */
+@media (min-width: 640px) {
   .dashboard-container {
-    padding: 15px;
+    padding: var(--space-5);
   }
-  
-  th, td {
-    padding: 10px 8px;
-  }
-}
 
-@media (max-width: 768px) {
-  h1 {
-    font-size: 22px;
-  }
-  
-  .card {
-    padding: 15px;
-  }
-  
   .form-group {
-    flex-direction: column;
-    gap: 8px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
   }
-  
-  .form-group input,
+
+  .form-group input {
+    width: auto;
+    flex: 1 1 200px;
+  }
+
   .form-group button {
-    width: 100%;
-  }
-  
-  table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    font-size: 13px;
-  }
-  
-  th, td {
-    padding: 8px 6px;
-  }
-  
-  td button {
-    padding: 6px 8px;
-    font-size: 12px;
+    width: auto;
   }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 1024px) {
   .dashboard-container {
-    padding: 10px;
-  }
-  
-  h1 {
-    font-size: 18px;
-  }
-  
-  .card {
-    padding: 12px;
-  }
-  
-  table {
-    font-size: 12px;
-  }
-  
-  th, td {
-    padding: 6px 4px;
-  }
-  
-  td button {
-    padding: 5px 6px;
-    font-size: 11px;
-    margin: 2px 1px;
+    padding: var(--space-6);
   }
 }

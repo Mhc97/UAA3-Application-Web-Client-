@@ -1,93 +1,118 @@
+/* ===================================================================
+   LISTE EN LECTURE SEULE
+   Tes deux blocs CSS envoyés pour cette vue étaient identiques :
+   ce fichier unique couvre les deux composants concernés.
+   Même logique mobile first que le dashboard, en version allégée
+   (pas de formulaire, pas de boutons d'action).
+   =================================================================== */
+
 .dashboard-container {
-  padding: 20px;
+  padding: var(--space-4);
   max-width: 900px;
   margin: 0 auto;
 }
 
-h1 {
-  color: #2563eb;
-  margin-bottom: 20px;
+.dashboard-container h1 {
+  color: var(--clr-primary-dark);
 }
 
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
+/* -------------------------------------------------------------
+   Tableau : liste de cartes sur mobile, tableau classique ensuite.
+   ------------------------------------------------------------- */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 15px;
+  margin-top: var(--space-4);
 }
 
-th, td {
-  text-align: left;
-  padding: 12px;
-  border-bottom: 1px solid #eee;
-}
-
-th {
-  background-color: #f8f9fa;
-  font-weight: bold;
-  color: #333;
-}
-
-tr:hover {
-  background-color: #f8f9fa;
-}
-
-p {
-  color: #666;
-  font-style: italic;
-}
-
-/* ========== RESPONSIVE ========== */
-
-@media (max-width: 768px) {
-  .dashboard-container {
-    padding: 15px;
-  }
-  
-  h1 {
-    font-size: 22px;
-  }
-  
-  .card {
-    padding: 15px;
-  }
-  
-  table {
+@media (max-width: 639px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
     display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    font-size: 13px;
+    width: 100%;
   }
-  
-  th, td {
-    padding: 8px 6px;
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--clr-border);
+    text-align: right;
+  }
+
+  td:last-child {
+    border-bottom: none;
+  }
+
+  /* Ajoutez data-label="..." sur chaque <td> pour afficher
+     l'intitulé de colonne correspondant sur mobile. */
+  td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: var(--clr-text-muted);
+    text-align: left;
   }
 }
 
-@media (max-width: 480px) {
-  .dashboard-container {
-    padding: 10px;
-  }
-  
-  h1 {
-    font-size: 18px;
-  }
-  
-  .card {
+@media (min-width: 640px) {
+  th,
+  td {
+    text-align: left;
     padding: 12px;
+    border-bottom: 1px solid var(--clr-border);
   }
-  
-  table {
-    font-size: 12px;
+
+  th {
+    background-color: var(--clr-surface-muted);
+    font-weight: 600;
+    color: var(--clr-text);
+    font-size: 0.8125rem;
   }
-  
-  th, td {
-    padding: 6px 4px;
+
+  tr:hover {
+    background-color: var(--clr-surface-muted);
+  }
+}
+
+/* -------------------------------------------------------------
+   Message d'état vide / texte d'accompagnement sous le tableau
+   ------------------------------------------------------------- */
+p {
+  color: var(--clr-text-muted);
+  font-style: italic;
+  font-size: 0.9375rem;
+}
+
+/* -------------------------------------------------------------
+   Ajustements progressifs
+   ------------------------------------------------------------- */
+@media (min-width: 640px) {
+  .dashboard-container {
+    padding: var(--space-5);
+  }
+}
+
+@media (min-width: 1024px) {
+  .dashboard-container {
+    padding: var(--space-6);
   }
 }
