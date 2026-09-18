@@ -1,0 +1,171 @@
+.dashboard-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: #2563eb;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form-group input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-group button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #2563eb;
+  color: white;
+  font-weight: bold;
+}
+
+.form-group button:hover {
+  background-color: #1d4ed8;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  color: #333;
+}
+
+tr:hover {
+  background-color: #f8f9fa;
+}
+
+td button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+  font-size: 13px;
+}
+
+td button:first-child {
+  background-color: #f59e0b;
+  color: white;
+}
+
+td button:first-child:hover {
+  background-color: #d97706;
+}
+
+td button:last-child {
+  background-color: #dc2626;
+  color: white;
+}
+
+td button:last-child:hover {
+  background-color: #b91c1c;
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 1024px) {
+  .dashboard-container {
+    padding: 15px;
+  }
+  
+  th, td {
+    padding: 10px 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 22px;
+  }
+  
+  .card {
+    padding: 15px;
+  }
+  
+  .form-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .form-group input,
+  .form-group button {
+    width: 100%;
+  }
+  
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 13px;
+  }
+  
+  th, td {
+    padding: 8px 6px;
+  }
+  
+  td button {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 18px;
+  }
+  
+  .card {
+    padding: 12px;
+  }
+  
+  table {
+    font-size: 12px;
+  }
+  
+  th, td {
+    padding: 6px 4px;
+  }
+  
+  td button {
+    padding: 5px 6px;
+    font-size: 11px;
+    margin: 2px 1px;
+  }
+}

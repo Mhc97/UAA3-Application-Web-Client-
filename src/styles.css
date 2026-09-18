@@ -1,1 +1,108 @@
 /* You can add global styles to this file, and also import other style files */
+/* ===================================
+   RESPONSIVE DESIGN - GLOBAL
+   =================================== */
+
+/* Réinitialisation */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f1f5f9;
+}
+
+/* Tablettes et petits écrans */
+@media (max-width: 1024px) {
+  .dashboard-container {
+    padding: 15px;
+  }
+  
+  table {
+    font-size: 14px;
+  }
+  
+  th, td {
+    padding: 10px 8px;
+  }
+}
+
+/* Mobiles */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 22px;
+  }
+  
+  h2 {
+    font-size: 18px;
+  }
+  
+  .card {
+    padding: 15px;
+  }
+  
+  /* Formulaires empilés */
+  .form-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .form-group input,
+  .form-group button {
+    width: 100%;
+  }
+  
+  /* Tableaux scrollables */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 13px;
+  }
+  
+  th, td {
+    padding: 8px 6px;
+  }
+  
+  /* Boutons plus gros pour le tactile */
+  button {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+}
+
+/* Très petits mobiles */
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 18px;
+  }
+  
+  h2 {
+    font-size: 16px;
+  }
+  
+  .card {
+    padding: 12px;
+    border-radius: 6px;
+  }
+  
+  table {
+    font-size: 12px;
+  }
+  
+  th, td {
+    padding: 6px 4px;
+  }
+  
+  button {
+    padding: 8px 10px;
+    font-size: 12px;
+    margin: 2px 0;
+  }
+}

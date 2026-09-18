@@ -1,0 +1,17 @@
+{
+  "admins": [
+    { "id": "1", "nom": "Protagoniste", "email": "protagoniste@clinique.be", "password": "123456" }
+  ],
+  "medecins": [
+    { "id": "1", "nom": "Dr. Orochimaru", "email": "orochimaru@clinique.be", "password": "123456", "telephone": "024453908", "specialite": "Cardiologue" },
+    { "id": "2", "nom": "Dr. Maboul", "email": "maboul@clinique.be", "password": "123456", "telephone": "0412345678", "specialite": "Généraliste" }
+  ],
+  "patients": [
+    { "id": "1", "nom": "Emmanuel Macron", "email": "emmanuel.macron@email.com", "password": "123456", "telephone": "0475123456" },
+    { "id": "2", "nom": "Marie Grand", "email": "marie.grand@email.com", "password": "123456", "telephone": "024455667" }
+  ],
+  "rendezvous": [
+    { "id": "1", "date": "2026-09-20", "heure": "10:00", "patientId": "1", "medecinId": "1", "etat": "en attente" },
+    { "id": "2", "date": "2026-09-21", "heure": "14:30", "patientId": "2", "medecinId": "2", "etat": "confirmé" }
+  ]
+}
